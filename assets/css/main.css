@@ -4777,9 +4777,7 @@ body {
 
 .hero {
   height: 100vh;
-  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)), url('../../images/Screenshot_20260503_004643_Gallery.jpg');
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4804,17 +4802,21 @@ body {
 }
 
 .hero-logo {
-  width: 120px !important;
+  width: 150px !important;
   height: auto !important;
+  max-width: 150px !important;
   margin-bottom: 30px;
   border-radius: 50%;
   border: 3px solid white;
   padding: 5px;
   background: rgba(0,0,0,0.5);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero h1 {
-  font-size: 3.5rem;
+  font-size: 3rem;
   letter-spacing: 3px;
   color: white;
   margin-bottom: 15px;
@@ -4931,6 +4933,11 @@ body {
   z-index: 10;
 }
 
+/* Remove any background image from hero */
+.hero {
+  background-image: none !important;
+}
+
 /* Responsive */
 @media screen and (max-width: 768px) {
   .hero h1 {
@@ -4954,7 +4961,8 @@ body {
   }
   
   .hero-logo {
-    width: 80px !important;
+    width: 100px !important;
+    max-width: 100px !important;
   }
   
   .services {
@@ -4975,5 +4983,11 @@ body {
   .hero h1 {
     font-size: 1.5rem;
   }
+  
+  .hero-logo {
+    width: 80px !important;
+    max-width: 80px !important;
+  }
 }
+  background: linear-gradient(rgba(0,0,0,0.7), 
 		
