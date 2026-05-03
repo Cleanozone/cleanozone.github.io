@@ -4762,7 +4762,7 @@ body {
 
 		/* LOGO FIX */
 		.hero-logo {
-  width: clamp(120px, 15vw, 180px) !important;
+  width: clamp(120px, 40vw, 180px) !important;
   height: auto;
   display: block;
   margin: 0 auto 20px;
@@ -4775,7 +4775,7 @@ body {
 
 /* optional hover (feels premium) */
 .hero-logo:hover {
-  transform: scale(1.05);
+  transform: scale(1);
 }
 
 /* spacing fix */
