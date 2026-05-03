@@ -11,6 +11,37 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* Custom styles for Cleanozone */
+			.logo-image {
+				max-width: 280px;
+				width: 100%;
+				height: auto;
+				margin-bottom: 1.5rem;
+				display: block;
+			}
+			#intro .logo-container {
+				margin-bottom: 2rem;
+			}
+			#header .logo {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				padding: 0.5rem 0;
+			}
+			#header .logo img {
+				max-height: 70px;
+				width: auto;
+			}
+			@media screen and (max-width: 736px) {
+				.logo-image {
+					max-width: 200px;
+				}
+				#header .logo img {
+					max-height: 50px;
+				}
+			}
+		</style>
 	</head>
 	<body class="is-preload">
 
@@ -19,9 +50,11 @@
 
 				<!-- Intro -->
 					<div id="intro">
-						<img src="images/Screenshot_20260503_004643_Gallery.jpg" alt="Cleanozone Logo" style="max-width: 200px; margin-bottom: 2rem; border-radius: 50%;" />
-						<h1>Cleanozone<br />
-						Car Care & Detailing</h1>
+						<div class="logo-container">
+							<img src="images/1000723386.jpg" alt="Cleanozone Logo" class="logo-image" />
+						</div>
+						<h1>CAR CARE &<br />
+						DETAILING</h1>
 						<p>Premium car wash, deep cleaning, detailing, polishing, and rim painting services.<br />
 						We don't just clean cars — we restore their glory and protect your investment.</p>
 						<ul class="actions">
@@ -31,7 +64,9 @@
 
 				<!-- Header -->
 					<header id="header">
-						<a href="index.html" class="logo">Cleanozone</a>
+						<a href="index.html" class="logo">
+							<img src="images/1000723386.jpg" alt="Cleanozone Logo" />
+						</a>
 					</header>
 
 				<!-- Nav -->
@@ -142,7 +177,7 @@
 								</article>
 							</section>
 
-						<!-- Call to Action -->
+						<!-- Footer/Pagination -->
 							<footer>
 								<div class="pagination">
 									<a href="#" class="previous">Prev</a>
