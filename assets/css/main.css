@@ -4761,13 +4761,15 @@ body {
 }
 
 		/* LOGO FIX */
-.hero-logo {
-  width: 160px;
-  max-width: 40vw;   /* responsive on phones */
-  height: auto;
-  margin-bottom: 20px;
+		.hero-logo {
+  width: 160px !important;
+  height: auto !important;
+  max-width: none !important;
+  display: block;
+  margin: 0 auto 20px;
 
   filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7));
+		}
 }
 
   /* smooth appearance */
