@@ -46,20 +46,12 @@
 				margin-bottom: 1rem;
 				color: #212931;
 			}
-			.rating-option {
+			.rating-option, .service-option {
 				display: inline-block;
 				margin-right: 1.5rem;
 				margin-bottom: 0.5rem;
 			}
-			.rating-option input {
-				margin-right: 0.5rem;
-			}
-			.service-option {
-				display: inline-block;
-				margin-right: 1.5rem;
-				margin-bottom: 0.5rem;
-			}
-			.service-option input {
+			.rating-option input, .service-option input {
 				margin-right: 0.5rem;
 			}
 			.testimonial-card {
@@ -129,7 +121,7 @@
 									
 									<form method="post" action="#">
 										
-										<!-- Which service did you use? -->
+										<!-- Which service did you use? - Full Detailing pre-selected -->
 										<div class="feedback-question">
 											<h3>⭐ Which service did you use?</h3>
 											<div>
@@ -137,7 +129,7 @@
 													<input type="radio" name="service" value="Basic Wash" /> Basic Wash
 												</label>
 												<label class="service-option">
-													<input type="radio" name="service" value="Full Detailing" /> Full Detailing
+													<input type="radio" name="service" value="Full Detailing" checked /> Full Detailing
 												</label>
 												<label class="service-option">
 													<input type="radio" name="service" value="Polishing" /> Polishing
@@ -154,12 +146,12 @@
 											</div>
 										</div>
 										
-										<!-- How was your experience? -->
+										<!-- How was your experience? - Excellent pre-selected -->
 										<div class="feedback-question">
 											<h3>😊 How was your experience?</h3>
 											<div>
 												<label class="rating-option">
-													<input type="radio" name="experience" value="Excellent" /> 🌟🌟🌟🌟🌟 Excellent
+													<input type="radio" name="experience" value="Excellent" checked /> 🌟🌟🌟🌟🌟 Excellent
 												</label>
 												<label class="rating-option">
 													<input type="radio" name="experience" value="Good" /> 🌟🌟🌟🌟 Good
@@ -173,18 +165,100 @@
 											</div>
 										</div>
 										
-										<!-- Would you recommend us? -->
+										<!-- Would you recommend us? - Yes pre-selected -->
 										<div class="feedback-question">
 											<h3>👍 Would you recommend Cleanozone to others?</h3>
 											<div>
 												<label class="rating-option">
-													<input type="radio" name="recommend" value="Yes" /> Definitely Yes
+													<input type="radio" name="recommend" value="Yes" checked /> Definitely Yes
 												</label>
 												<label class="rating-option">
 													<input type="radio" name="recommend" value="Maybe" /> Maybe
 												</label>
 												<label class="rating-option">
 													<input type="radio" name="recommend" value="No" /> No
+												</label>
+											</div>
+										</div>
+										
+										<!-- Cleaning Quality -->
+										<div class="feedback-question">
+											<h3>🧼 How would you rate the cleaning quality?</h3>
+											<div>
+												<label class="rating-option">
+													<input type="radio" name="quality" value="5" checked /> 5 - Perfect
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="quality" value="4" /> 4 - Very Good
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="quality" value="3" /> 3 - Good
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="quality" value="2" /> 2 - Fair
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="quality" value="1" /> 1 - Poor
+												</label>
+											</div>
+										</div>
+										
+										<!-- Customer Service -->
+										<div class="feedback-question">
+											<h3>👔 How would you rate our customer service?</h3>
+											<div>
+												<label class="rating-option">
+													<input type="radio" name="customerservice" value="5" checked /> 5 - Excellent
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="customerservice" value="4" /> 4 - Very Good
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="customerservice" value="3" /> 3 - Good
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="customerservice" value="2" /> 2 - Fair
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="customerservice" value="1" /> 1 - Poor
+												</label>
+											</div>
+										</div>
+										
+										<!-- Price/Value -->
+										<div class="feedback-question">
+											<h3>💰 Do you feel our prices are fair for the quality?</h3>
+											<div>
+												<label class="rating-option">
+													<input type="radio" name="value" value="Yes" checked /> Yes, great value
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="value" value="Maybe" /> Fair price
+												</label>
+												<label class="rating-option">
+													<input type="radio" name="value" value="No" /> Too expensive
+												</label>
+											</div>
+										</div>
+										
+										<!-- How did you hear about us? -->
+										<div class="feedback-question">
+											<h3>📢 How did you hear about Cleanozone?</h3>
+											<div>
+												<label class="service-option">
+													<input type="radio" name="heard" value="Instagram" checked /> Instagram
+												</label>
+												<label class="service-option">
+													<input type="radio" name="heard" value="TikTok" /> TikTok
+												</label>
+												<label class="service-option">
+													<input type="radio" name="heard" value="Friend/Family" /> Friend/Family
+												</label>
+												<label class="service-option">
+													<input type="radio" name="heard" value="Google" /> Google Search
+												</label>
+												<label class="service-option">
+													<input type="radio" name="heard" value="Walked by" /> Walked by / Saw sign
 												</label>
 											</div>
 										</div>
@@ -242,34 +316,6 @@
 									<p>"Best car wash in Aley area! They really care about your car. The interior deep cleaning was exceptional. My car feels and smells fresh."</p>
 									<div class="service-used">Service: Deep Cleaning</div>
 									<div class="customer-name">- Nour S.</div>
-								</div>
-
-								<hr />
-
-								<!-- Why Feedback Matters -->
-								<h2>🌱 Why Your Feedback Matters</h2>
-								<div class="row">
-									<div class="col-4 col-12-small">
-										<div style="text-align: center; padding: 1rem;">
-											<span style="font-size: 2rem;">🎯</span>
-											<h3>Improve Quality</h3>
-											<p>Help us identify areas where we can do better</p>
-										</div>
-									</div>
-									<div class="col-4 col-12-small">
-										<div style="text-align: center; padding: 1rem;">
-											<span style="font-size: 2rem;">🏆</span>
-											<h3>Reward Excellence</h3>
-											<p>Recognize our team members who go above and beyond</p>
-										</div>
-									</div>
-									<div class="col-4 col-12-small">
-										<div style="text-align: center; padding: 1rem;">
-											<span style="font-size: 2rem;">💡</span>
-											<h3>Shape Our Future</h3>
-											<p>Your ideas help us develop new services and offers</p>
-										</div>
-									</div>
 								</div>
 
 							</section>
