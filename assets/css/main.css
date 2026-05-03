@@ -4761,7 +4761,7 @@ body {
 }
 
 		.hero-inner img {
-  width: 160px !important;
+  width: auto !important;
   height: auto !important;
   max-width: none !important;
 		}
