@@ -4737,10 +4737,18 @@ input, select, textarea {
   text-decoration: none;
   transition: 0.3s;
 }
+		.hero-logo {
+  width: 160px;
+  max-width: 35vw;
+  height: auto;
+  margin-bottom: 20px;
+  filter: drop-shadow(0px 4px 10px rgba(0,0,0,0.4));
+		}
 
 .hero-button:hover {
   background: white;
   color: black;
 }
+		
 
 	}
