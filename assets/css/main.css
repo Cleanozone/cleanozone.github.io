@@ -4760,25 +4760,4 @@ body {
   text-align: center;
 }
 
-		/* LOGO FIX */
-		.hero-logo {
-  width: clamp(180px, 40vw, 180px) !important;
-  height: auto;
-  display: block;
-  margin: 0 auto 20px;
-		}
-		max-width: none 
-
-  /* smooth appearance */
-  transition: 0.3s ease;
-}
-
-/* optional hover (feels premium) */
-.hero-logo:hover {
-  transform: scale(1);
-}
-
-/* spacing fix */
-.hero-inner h1 {
-  margin-top: 10px;
-}
+		
