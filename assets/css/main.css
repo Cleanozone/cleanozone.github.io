@@ -4802,9 +4802,9 @@ body {
 }
 
 .hero-logo {
-  width: 150px !important;
+  width: 120px !important;
   height: auto !important;
-  max-width: 150px !important;
+  max-width: 120px !important;
   margin-bottom: 30px;
   border-radius: 50%;
   border: 3px solid white;
