@@ -4762,7 +4762,7 @@ body {
 
 		/* LOGO FIX */
 		.hero-logo {
-  width: clamp(120px, 40vw, 180px) !important;
+  width: clamp(180px, 40vw, 180px) !important;
   height: auto;
   display: block;
   margin: 0 auto 20px;
