@@ -47,7 +47,7 @@
 				color: #212931;
 			}
 			
-			/* FIXED RADIO BUTTON STYLES - Force visibility */
+			/* Radio button styles */
 			.rating-option, .service-option {
 				display: inline-block;
 				margin-right: 1.5rem;
@@ -55,7 +55,6 @@
 				cursor: pointer;
 			}
 			
-			/* Force radio buttons to appear normally */
 			input[type="radio"] {
 				width: 16px !important;
 				height: 16px !important;
@@ -67,15 +66,6 @@
 				-webkit-appearance: radio !important;
 				-moz-appearance: radio !important;
 				appearance: radio !important;
-				background: white !important;
-				border: 1px solid #999 !important;
-			}
-			
-			/* Remove any template styling that hides radio buttons */
-			input[type="radio"]:before, 
-			input[type="radio"]:after {
-				display: none !important;
-				content: none !important;
 			}
 			
 			label {
@@ -109,6 +99,49 @@
 				font-size: 0.8rem;
 				color: #909498;
 				margin-bottom: 0.5rem;
+			}
+			.testimonial-card .feedback-date {
+				font-size: 0.7rem;
+				color: #bbb;
+				margin-top: 0.5rem;
+			}
+			
+			.success-message {
+				background: #4CAF50;
+				color: white;
+				padding: 1rem;
+				border-radius: 4px;
+				margin-bottom: 1rem;
+				display: none;
+			}
+			
+			.delete-btn {
+				background: #ff4444;
+				color: white;
+				border: none;
+				padding: 0.3rem 0.8rem;
+				border-radius: 3px;
+				cursor: pointer;
+				font-size: 0.7rem;
+				margin-top: 0.5rem;
+			}
+			
+			.delete-btn:hover {
+				background: #cc0000;
+			}
+			
+			.clear-all {
+				background: #666;
+				color: white;
+				border: none;
+				padding: 0.5rem 1rem;
+				border-radius: 4px;
+				cursor: pointer;
+				margin-bottom: 1rem;
+			}
+			
+			.clear-all:hover {
+				background: #444;
 			}
 		</style>
 	</head>
@@ -150,12 +183,17 @@
 									Your opinion matters to us!</p>
 								</header>
 
+								<!-- Success Message -->
+								<div id="successMessage" class="success-message">
+									✅ Thank you for your feedback!
+								</div>
+
 								<!-- Feedback Form -->
 								<div class="feedback-form">
 									<h2>📝 Share Your Experience</h2>
 									<p>Please take a moment to rate your recent service at Cleanozone.</p>
 									
-									<form method="post" action="#">
+									<form id="feedbackForm">
 										
 										<!-- Which service did you use? -->
 										<div class="feedback-question">
@@ -313,8 +351,8 @@
 										
 										<!-- Submit Button -->
 										<ul class="actions">
-											<li><input type="submit" value="Submit Feedback" class="primary" /></li>
-											<li><input type="reset" value="Clear Form" /></li>
+											<li><button type="button" id="submitFeedback" class="button primary">Submit Feedback</button></li>
+											<li><button type="reset" class="button">Clear Form</button></li>
 										</ul>
 										
 									</form>
@@ -323,35 +361,12 @@
 								<hr />
 
 								<!-- Customer Testimonials -->
-								<h2>⭐ What Our Customers Say</h2>
-								<p>Real feedback from our valued customers:</p>
-								
-								<div class="testimonial-card">
-									<div class="stars">★★★★★</div>
-									<p>"Amazing service! My car looks brand new after the full detailing. The team was professional and thorough. Highly recommend Cleanozone!"</p>
-									<div class="service-used">Service: Full Detailing</div>
-									<div class="customer-name">- Ali K.</div>
+								<h2>⭐ Customer Feedback</h2>
+								<div style="text-align: right; margin-bottom: 1rem;">
+									<button id="clearAllFeedback" class="clear-all">🗑️ Clear All Feedback</button>
 								</div>
-								
-								<div class="testimonial-card">
-									<div class="stars">★★★★★</div>
-									<p>"Got my rims painted matte black. They look incredible! Great attention to detail and fair pricing. Will definitely come back."</p>
-									<div class="service-used">Service: Rim Painting</div>
-									<div class="customer-name">- Maria H.</div>
-								</div>
-								
-								<div class="testimonial-card">
-									<div class="stars">★★★★☆</div>
-									<p>"Very satisfied with the polishing service. Removed all the swirl marks. The car shines like never before. Only minor delay but worth the wait."</p>
-									<div class="service-used">Service: Polishing</div>
-									<div class="customer-name">- Hassan R.</div>
-								</div>
-								
-								<div class="testimonial-card">
-									<div class="stars">★★★★★</div>
-									<p>"Best car wash in Aley area! They really care about your car. The interior deep cleaning was exceptional. My car feels and smells fresh."</p>
-									<div class="service-used">Service: Deep Cleaning</div>
-									<div class="customer-name">- Nour S.</div>
+								<div id="feedbackList">
+									<!-- Saved feedback will appear here -->
 								</div>
 
 							</section>
@@ -422,6 +437,186 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			
+		<!-- Custom JavaScript for saving feedback -->
+		<script>
+			// Load saved feedback from localStorage when page loads
+			function loadFeedback() {
+				const savedFeedback = localStorage.getItem('cleanozoneFeedback');
+				if (savedFeedback) {
+					const feedbacks = JSON.parse(savedFeedback);
+					displayFeedback(feedbacks);
+				} else {
+					// Show demo feedback if none exists
+					const demoFeedback = [
+						{
+							name: "Ali K.",
+							service: "Full Detailing",
+							experience: "Excellent",
+							recommend: "Yes",
+							quality: "5",
+							customerservice: "5",
+							value: "Yes",
+							heard: "Instagram",
+							comment: "Amazing service! My car looks brand new after the full detailing. The team was professional and thorough. Highly recommend Cleanozone!",
+							date: new Date().toLocaleDateString()
+						},
+						{
+							name: "Maria H.",
+							service: "Rim Painting",
+							experience: "Excellent",
+							recommend: "Yes",
+							quality: "5",
+							customerservice: "4",
+							value: "Yes",
+							heard: "TikTok",
+							comment: "Got my rims painted matte black. They look incredible! Great attention to detail and fair pricing.",
+							date: new Date().toLocaleDateString()
+						}
+					];
+					localStorage.setItem('cleanozoneFeedback', JSON.stringify(demoFeedback));
+					displayFeedback(demoFeedback);
+				}
+			}
+			
+			// Display feedback cards
+			function displayFeedback(feedbacks) {
+				const container = document.getElementById('feedbackList');
+				if (!feedbacks || feedbacks.length === 0) {
+					container.innerHTML = '<p style="text-align: center;">No feedback yet. Be the first to leave a review!</p>';
+					return;
+				}
+				
+				let html = '';
+				for (let i = 0; i < feedbacks.length; i++) {
+					const f = feedbacks[i];
+					const starRating = getStarRating(f.experience);
+					
+					html += `
+						<div class="testimonial-card" data-index="${i}">
+							<div class="stars">${starRating}</div>
+							<p>"${f.comment || 'Great service!'}"</p>
+							<div class="service-used">Service: ${f.service || 'Not specified'}</div>
+							<div class="customer-name">- ${f.name || 'Anonymous'}</div>
+							<div class="feedback-date">📅 ${f.date || new Date().toLocaleDateString()}</div>
+							<button class="delete-btn" onclick="deleteFeedback(${i})">🗑️ Delete</button>
+						</div>
+					`;
+				}
+				container.innerHTML = html;
+			}
+			
+			// Convert experience to stars
+			function getStarRating(experience) {
+				switch(experience) {
+					case 'Excellent': return '★★★★★';
+					case 'Good': return '★★★★☆';
+					case 'Average': return '★★★☆☆';
+					case 'Bad': return '★★☆☆☆';
+					default: return '★★★★★';
+				}
+			}
+			
+			// Save new feedback
+			function saveFeedback(feedback) {
+				const savedFeedback = localStorage.getItem('cleanozoneFeedback');
+				let feedbacks = savedFeedback ? JSON.parse(savedFeedback) : [];
+				feedbacks.unshift(feedback); // Add new feedback at the beginning
+				localStorage.setItem('cleanozoneFeedback', JSON.stringify(feedbacks));
+				displayFeedback(feedbacks);
+			}
+			
+			// Delete single feedback
+			function deleteFeedback(index) {
+				const savedFeedback = localStorage.getItem('cleanozoneFeedback');
+				let feedbacks = JSON.parse(savedFeedback);
+				feedbacks.splice(index, 1);
+				localStorage.setItem('cleanozoneFeedback', JSON.stringify(feedbacks));
+				displayFeedback(feedbacks);
+				showMessage('Feedback deleted!', '#ff4444');
+			}
+			
+			// Clear all feedback
+			function clearAllFeedback() {
+				if (confirm('Are you sure you want to delete ALL feedback?')) {
+					localStorage.removeItem('cleanozoneFeedback');
+					displayFeedback([]);
+					showMessage('All feedback cleared!', '#ff4444');
+				}
+			}
+			
+			// Show success/error message
+			function showMessage(msg, color = '#4CAF50') {
+				const msgDiv = document.getElementById('successMessage');
+				msgDiv.textContent = msg;
+				msgDiv.style.backgroundColor = color;
+				msgDiv.style.display = 'block';
+				setTimeout(() => {
+					msgDiv.style.display = 'none';
+				}, 3000);
+			}
+			
+			// Get selected radio value
+			function getSelectedValue(name) {
+				const radios = document.getElementsByName(name);
+				for (let i = 0; i < radios.length; i++) {
+					if (radios[i].checked) {
+						return radios[i].value;
+					}
+				}
+				return null;
+			}
+			
+			// Submit feedback
+			document.getElementById('submitFeedback').addEventListener('click', function() {
+				const service = getSelectedValue('service');
+				const experience = getSelectedValue('experience');
+				const recommend = getSelectedValue('recommend');
+				const quality = getSelectedValue('quality');
+				const customerservice = getSelectedValue('customerservice');
+				const value = getSelectedValue('value');
+				const heard = getSelectedValue('heard');
+				const name = document.getElementById('customer-name').value;
+				const comment = document.getElementById('feedback-message').value;
+				
+				if (!service) {
+					showMessage('Please select a service!', '#ff9800');
+					return;
+				}
+				if (!experience) {
+					showMessage('Please rate your experience!', '#ff9800');
+					return;
+				}
+				
+				const feedback = {
+					name: name || 'Anonymous',
+					service: service,
+					experience: experience,
+					recommend: recommend,
+					quality: quality,
+					customerservice: customerservice,
+					value: value,
+					heard: heard,
+					comment: comment || 'No comment provided',
+					date: new Date().toLocaleDateString()
+				};
+				
+				saveFeedback(feedback);
+				
+				// Clear form
+				document.getElementById('feedbackForm').reset();
+				document.getElementById('customer-name').value = '';
+				document.getElementById('feedback-message').value = '';
+				
+				showMessage('✅ Thank you for your feedback!');
+			});
+			
+			// Clear all button
+			document.getElementById('clearAllFeedback').addEventListener('click', clearAllFeedback);
+			
+			// Load feedback when page loads
+			loadFeedback();
+		</script>
 
 	</body>
 </html>
