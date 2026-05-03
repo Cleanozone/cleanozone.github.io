@@ -4762,15 +4762,12 @@ body {
 
 		/* LOGO FIX */
 		.hero-logo {
-  width: 160px !important;
-  height: auto !important;
-  max-width: none !important;
+  width: clamp(120px, 15vw, 180px) !important;
+  height: auto;
   display: block;
   margin: 0 auto 20px;
-
-  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.7));
 		}
-
+		max-width: none 
 
   /* smooth appearance */
   transition: 0.3s ease;
