@@ -101,7 +101,7 @@
 									<h2>📅 Appointment Request Form</h2>
 									<p>Please fill in all the details below:</p>
 									
-									<form method="post" action="#">
+									<form id="bookingForm">
 										<div class="row gtr-uniform">
 											
 											<!-- Personal Information -->
@@ -191,7 +191,7 @@
 											<!-- Submit Buttons -->
 											<div class="col-12">
 												<ul class="actions">
-													<li><input type="submit" value="Book Appointment" class="primary" /></li>
+													<li><input type="submit" value="Book Appointment" class="primary" id="submitBtn" /></li>
 													<li><input type="reset" value="Reset Form" /></li>
 												</ul>
 											</div>
@@ -373,6 +373,114 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			
+		<!-- GitHub Booking Script -->
+		<script>
+		// ⚠️ IMPORTANT: استبدلي المعلومات التالية بمعلومات حسابك على GitHub ⚠️
+		const GITHUB_USERNAME = "cleanozone"; // <- استبدلي باسم المستخدم تبعك
+		const GITHUB_REPO = "cleanozone-bookings"; // <- اسم المستودع اللي سويتيه
+		const GITHUB_TOKEN = "ghp_your_token_here"; // <- استبدلي بالـ Token اللي خذيتيه من GitHub
+		
+		// باقي السكريبت - لا تغيري شيء منه
+		const bookingForm = document.getElementById('bookingForm');
+		
+		if (bookingForm) {
+			bookingForm.addEventListener('submit', async function(e) {
+				e.preventDefault();
+				
+				// جمع الخدمات المختارة
+				const services = [];
+				document.querySelectorAll('input[name="services"]:checked').forEach(checkbox => {
+					services.push(checkbox.value);
+				});
+				
+				// جمع البيانات من الفورم
+				const fullName = document.getElementById('full-name')?.value || '';
+				const phone = document.getElementById('phone')?.value || '';
+				const email = document.getElementById('email')?.value || '';
+				const carModel = document.getElementById('car-model')?.value || '';
+				const bookingDate = document.getElementById('preferred-date')?.value || 'غير محدد';
+				const bookingTime = document.getElementById('preferred-time')?.value || 'غير محدد';
+				const vehicleCondition = document.getElementById('vehicle-condition')?.value || 'غير محدد';
+				const specialRequests = document.getElementById('special-requests')?.value || 'لا يوجد';
+				
+				// التحقق من الحقول الأساسية
+				if (!fullName || !phone || !carModel) {
+					alert("الرجاء تعبئة جميع الحقول الأساسية (الاسم، رقم الهاتف، موديل السيارة)");
+					return;
+				}
+				
+				// تجهيز نص الإشعار لـ GitHub Issue
+				const issueTitle = `📅 حجز جديد - ${fullName}`;
+				const issueBody = `
+## 🚗 حجز جديد من موقع Cleanozone
 
+**👤 الاسم:** ${fullName}
+**📱 رقم الهاتف:** ${phone}
+**📧 البريد الإلكتروني:** ${email || 'غير مدخل'}
+**🚙 السيارة:** ${carModel}
+**📆 التاريخ المفضل:** ${bookingDate}
+**⏰ الوقت المفضل:** ${bookingTime}
+**✨ الخدمات المطلوبة:** ${services.join(', ') || 'غير محددة'}
+**🔧 حالة السيارة:** ${vehicleCondition}
+**📝 طلبات خاصة:** ${specialRequests}
+
+---
+*تم استلام الطلب بتاريخ: ${new Date().toLocaleString('ar-LB')}*
+*رقم العميل للتواصل: ${phone}*
+				`;
+				
+				// إظهار رسالة جاري المعالجة
+				const submitBtn = document.getElementById('submitBtn');
+				const originalText = submitBtn.value;
+				submitBtn.value = "جاري الإرسال...";
+				submitBtn.disabled = true;
+				
+				try {
+					// إرسال البيانات إلى GitHub API
+					const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues`, {
+						method: 'POST',
+						headers: {
+							'Authorization': `token ${GITHUB_TOKEN}`,
+							'Accept': 'application/json',
+							'Content-Type':application/json'
+						},
+						body: JSON.stringify({
+							title: issueTitle,
+							body: issueBody,
+							labels: ['pending', 'new-booking']
+						})
+					});
+					
+					if (response.ok) {
+						// عرض رسالة نجاح
+						const formContainer = document.querySelector('.booking-form');
+						formContainer.innerHTML = `
+							<div style="text-align: center; padding: 40px;">
+								<span style="font-size: 50px;">✅</span>
+								<h2>تم استلام حجزك بنجاح!</h2>
+								<p>شكراً لثقتكم ب Cleanozone</p>
+								<p>سنتواصل معكم خلال 24 ساعة لتأكيد الموعد.</p>
+								<button onclick="location.reload()" style="background: #18bfef; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-top: 20px;">
+									📅 حجز جديد
+								</button>
+							</div>
+						`;
+					} else {
+						const errorData = await response.json();
+						console.error('GitHub Error:', errorData);
+						throw new Error('GitHub API error');
+					}
+				} catch(error) {
+					console.error('Booking error:', error);
+					alert("❌ عذراً، حدث خطأ في إرسال الحجز. الرجاء الاتصال بنا مباشرة على: 81 092 933");
+					submitBtn.value = originalText;
+					submitBtn.disabled = false;
+				}
+			});
+		} else {
+			console.error('Form with id "bookingForm" not found');
+		}
+		</script>
 	</body>
 </html>
